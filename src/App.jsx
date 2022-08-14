@@ -19,6 +19,17 @@ const App = () => {
     },
   ]);
 
+  const handleTaskClick = (taskId) => {
+    const newTasks = tasks.map(task => {
+      // Loop em cada task, se o task.id for identico ao taskId que estamos recebendo no loop ex (task 1 === id task 1) retorna a task e altera o completed para o inverso do anterior (se era falso fica verdadeiro, se era verdadeiro fica falso)
+      if (task.id === taskId) return { ...task, completed: !task.completed }
+
+      return task;
+    });
+
+    setTasks(newTasks);
+  }
+
   const handleTaskAddition = (taskTitle) => {
     const newTask = [...tasks, {
       title: taskTitle,
@@ -31,9 +42,10 @@ const App = () => {
 
   return (
     <>
+      {/* handleTaskClick={handleTaskClick} === passar como prop */}
       <div className='container'>
         <AddTask handleTaskAddition={handleTaskAddition} />
-        <Tasks tasks={tasks} />
+        <Tasks tasks={tasks} handleTaskClick={handleTaskClick} />
       </div>
     </>
   );
